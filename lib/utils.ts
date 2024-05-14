@@ -75,6 +75,17 @@ export function formatAmount(amount: number): string {
   return formatter.format(amount);
 }
 
+//Format to kenyan currency
+export function formatAmountKenya(amount: number): string {
+  const formatter = new Intl.NumberFormat("en-KE", {
+    style: "currency",
+    currency: "KES",
+    minimumFractionDigits: 2,
+  });
+
+  return formatter.format(amount);
+}
+
 export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
 
 export const removeSpecialCharacters = (value: string) => {
