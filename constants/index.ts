@@ -6,14 +6,32 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/icons/dollar-circle.svg",
-    route: "/my-banks",
-    label: "My Banks",
+    route: "/my-mpesa",
+    label: "M-Pesa",
   },
   {
     imgURL: "/icons/transaction.svg",
-    route: "/transaction-history",
-    label: "Transaction History",
+    route: "/bank-transaction-history",
+    label: "M-Pesa Transaction History",
   },
+
+  {
+    imgURL: "/icons/money-send.svg",
+    route: "/payment-transfer",
+    label: "M-Pesa Transfer Funds",
+  },
+  {
+    imgURL: "/icons/dollar-circle.svg",
+    route: "/my-banks",
+    label: "My Banks",
+  },
+ 
+  {
+    imgURL: "/icons/transaction.svg",
+    route: "/bank-transaction-history",
+    label: "Bank Transaction History",
+  },
+ 
   {
     imgURL: "/icons/money-send.svg",
     route: "/payment-transfer",
