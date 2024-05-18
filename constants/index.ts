@@ -11,14 +11,14 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/icons/transaction.svg",
-    route: "/bank-transaction-history",
-    label: "M-Pesa Transaction History",
+    route: "/mpesa-history",
+    label: "M-Pesa Transaction",
   },
 
   {
     imgURL: "/icons/money-send.svg",
-    route: "/payment-transfer",
-    label: "M-Pesa Transfer Funds",
+    route: "/mpesa-transfer",
+    label: "M-Pesa Transfer",
   },
   {
     imgURL: "/icons/dollar-circle.svg",
@@ -34,8 +34,8 @@ export const sidebarLinks = [
  
   {
     imgURL: "/icons/money-send.svg",
-    route: "/payment-transfer",
-    label: "Transfer Funds",
+    route: "/bank-payment-transfer",
+    label: "Bank Transfer",
   },
 ];
 
