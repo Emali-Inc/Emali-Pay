@@ -18,7 +18,7 @@ import { Loader2 } from 'lucide-react';
 
 const AuthForm = ( {type}: {type: string}) => {
     const [user, setUser] = useState(null)
-    const [isLoading,setIsLoading] = useState(true)
+    const [isLoading,setIsLoading] = useState(false)
 
      // 1. Define your form.
   const form = useForm<z.infer<typeof authFormSchema>>({
@@ -69,7 +69,8 @@ const AuthForm = ( {type}: {type: string}) => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <CustomInput control={form.control} name="email" label="Email" placeholder="Enter your email"/>
               <CustomInput control={form.control} name="password" label="Password" placeholder="Enter your passsword"/>
-              <Button type="submit"  className="form-btn" >
+              <div className="flex flex-col gap-4">
+              <Button type="submit"  className="form-btn"  disabled={isLoading}>
                 {isLoading ? (
                   <>
                   <Loader2 size={20} className="animate-spin"/> &nbsp;
@@ -77,8 +78,18 @@ const AuthForm = ( {type}: {type: string}) => {
                   </>
                 ) : type === 'sign-in' ? 'Sign-in' : 'Sign Up'}
               </Button>
+              </div>
             </form>
              </Form>
+
+             <footer className="flex justify-center gap-1" >
+              <p className="text-14 font-normal text-grey-600">
+                {type === 'sign-in' ? "Don't have an account?" : "Already have an account?"}
+              </p>
+              <Link href={type === 'sign-in' ? '/sign-up' : '/sign-in'} className="form-link">
+                {type === 'sign-in' ? 'Sign Up' : 'Sign In'}
+              </Link>
+             </footer>
             </>
         )}
     </section>
