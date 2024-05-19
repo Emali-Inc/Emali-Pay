@@ -32,6 +32,7 @@ const AuthForm = ( {type}: {type: string}) => {
     resolver: zodResolver(authFormSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   })
  
@@ -71,10 +72,9 @@ const AuthForm = ( {type}: {type: string}) => {
             <>
              <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <CustomInput control={form.control} name="email" label="email" placeholder="Enter your email"/>
-              <CustomInput control={form.control} name="password" label="password" placeholder="Enter your passsword"/>
-           
-                  <Button type="submit">Submit</Button>
+              <CustomInput control={form.control} name="email" label="Email" placeholder="Enter your email"/>
+              <CustomInput control={form.control} name="password" label="Password" placeholder="Enter your passsword"/>
+              <Button type="submit">Submit</Button>
             </form>
              </Form>
             </>
