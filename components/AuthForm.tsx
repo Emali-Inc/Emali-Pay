@@ -9,16 +9,7 @@ import { z } from "zod"
 
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import {Form } from "@/components/ui/form"
 import CustomInput from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
  
@@ -36,7 +27,7 @@ const AuthForm = ( {type}: {type: string}) => {
     },
   })
  
-  // 2. Define a submit handler.
+  // 2. Define a submit handler since Form are client side .
   function onSubmit(values: z.infer<typeof authFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
