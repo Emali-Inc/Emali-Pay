@@ -8,7 +8,7 @@ export const SignIn = async () => {
     }
 }
 
-export const SignUn = async () => {
+export const SignUp = async () => {
     try {
        //Mutation /Modify the database  Make fetch
     } catch (error) {
