@@ -20,9 +20,9 @@ import { SignIn, SignUp } from '@/lib/actions/user.actions';
 
 const AuthForm = ( {type}: {type: string}) => {
     const router = useRouter();
-    const [user, setUser] = useState(null)
-    const [isLoading,setIsLoading] = useState(false)
-
+    const [user, setUser] = useState(null);
+    const [isLoading,setIsLoading] = useState(false);
+    
     const formSchema = authFormSchema(type);
 
      // 1. Define your form.
@@ -48,8 +48,8 @@ const AuthForm = ( {type}: {type: string}) => {
         setUser(newUser)
       }
       if (type === 'sign-in'){
-        const response = await signIn({
-          emali: data.email,
+        const response = await SignIn({
+          email: data.email,
           password: data.password,
         })
 
