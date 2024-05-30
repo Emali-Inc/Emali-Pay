@@ -14,7 +14,7 @@ import CustomInput from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { SignIn, SignUp } from '@/lib/actions/user.actions';
+import { signIn, signUp } from '@/lib/actions/user.actions';
  
 
 
@@ -43,12 +43,12 @@ const AuthForm = ( {type}: {type: string}) => {
       //Sign up with Appwrite and create plaid token
       
       if (type === 'sign-up') {
-        const newUser = await SignUp(data);
+        const newUser = await signUp(data);
         
         setUser(newUser)
       }
       if (type === 'sign-in'){
-        const response = await SignIn({
+        const response = await signIn({
           email: data.email,
           password: data.password,
         })
@@ -104,7 +104,7 @@ const AuthForm = ( {type}: {type: string}) => {
 
                     <div className="flex gap-4">
                     <CustomInput control={form.control} name="state" label="State" placeholder="Example: NY"/>
-                    <CustomInput control={form.control} name="postalcode" label="Postal Code" placeholder="Example: 111108"/>
+                    <CustomInput control={form.control} name="postalCode" label="Postal Code" placeholder="Example: 111108"/>
                     </div>
                     <div className="flex gap-4">
                     <CustomInput control={form.control} name="dateOfBirth" label="Date of Birth" placeholder="YYY-MM-DD"/>
