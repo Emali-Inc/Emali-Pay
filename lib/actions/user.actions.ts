@@ -1,63 +1,132 @@
 'use server';
 
-import { ID } from "node-appwrite";
+
+import { ID, Query } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
-export const SignIn = async ({ email,password }: signInProps) => {
-    try {
-       //Mutation /Modify the database  Make fetch
-       const { account } = await createAdminClient();
 
-       const response = await account.createEmailPasswordSession(email,password);
-       return parseStringify(response);
-    }  catch (error) {
-        console.error(error);
+
+const {
+  APPWRITE_DATABASE_ID: DATABASE_ID,
+  APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
+  
+} = process.env;
+
+export const getUserInfo = async ({ userId }:getUserInfoProps) => {
+  try {
+    console.log("getUserInfo called with userId:", userId);
+
+    const { database } = await createAdminClient();
+    const user = await database.listDocuments(
+      DATABASE_ID!,
+      USER_COLLECTION_ID!,
+      [Query.equal('userId', [userId])]
+    );
+
+    if (user.documents.length === 0) {
+      console.error("No user found with userId:", userId);
+      throw new Error('User not found');
     }
-}
 
-export const SignUp = async (userData: SignUpParams) => {
-    //Destructuring the user data syntax
-    const { email,password,firstName,lastName } = userData;
-    try {
-       //Mutation /Modify the database  Make fetch /Create user account
-       const { account } = await createAdminClient();
+    console.log("User documents retrieved:", user.documents[0]);
+    return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.error('Error getting user info:', error);
+    return null; // Return null explicitly if user is not found
+  }
+};
 
-       const newUser = await account.create(
-        ID.unique(), 
-        email, 
-        password,
-         `${firstName} ${lastName}`
-        );
-        //creating the session by awing the email and password
-       const session = await account.createEmailPasswordSession(email, password);
-        
-       //import the cookies from next-headers library of nextjs
-       cookies().set("emali-appwrite-session", session.secret, {
-         path: "/",
-         httpOnly: true,
-         sameSite: "strict",
-         secure: true,
-       });
-       //in nextjs we cannot pass large object such as entire user object
-       //through server actions rather we have to stringify and call the function from utils.ts file 
-       return parseStringify(newUser);
-     
-    } catch (error) {
-        console.error(error);
+export const signIn = async ({ email, password }: signInProps) => {
+  try {
+    console.log("SignIn function called with email:", email);
+
+    const { account } = await createAdminClient();
+    const session = await account.createEmailPasswordSession(email, password);
+    console.log("Session created:", session);
+
+    cookies().set('emali-appwrite-session', session.$id, {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: true,
+    });
+
+    const user = await getUserInfo({ userId: session.userId });
+    console.log("User info retrieved:", user);
+
+    if (!user) {
+      throw new Error("User not found or error retrieving user info");
     }
-}
 
-// ... your initilization functions
+    return parseStringify(user);
+  } catch (error) {
+    console.error('Error signing in:', error);
+    throw error;
+  }
+};
+
+export const signUp = async (userData: SignUpParams) => {
+  const { email, password, firstName, lastName } = userData;
+
+  try {
+    const { account } = await createAdminClient();
+
+    const newUserAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      `${firstName} ${lastName}`
+    );
+
+    if (!newUserAccount) throw new Error('Error creating user');
+
+    const session = await account.createEmailPasswordSession(email, password);
+    console.log("Session created:", session);
+
+    cookies().set("emali-appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
+    return parseStringify(newUserAccount);
+  } catch (error) {
+    console.error('Error signing up:', error);
+    throw error;
+  }
+};
+
+
 export async function getLoggedInUser() {
+  try {
+    const { account } = await createSessionClient();
+    console.log("Get account:", account);
+
+    const result = await account.get();
+    console.log("Logged in user account details:", result);
+
+    const user = await getUserInfo({ userId: result.$id });
+    console.log('User info is:', user);
+
+    return parseStringify(user);
+  } catch (error) {
+    console.error('Error getting logged in user:', error);
+    return null;
+  }
+}
+
+
+  //initilization logoutAccount functions
+export async function logoutAccount() {
     try {
       const { account } = await createSessionClient();
-      const user = await account.get();
+      cookies().delete('emali-appwrite-session');
 
-      return parseStringify(user);
+      await account.deleteSession('current');
     } catch (error) {
       return null;
     }
   }
-  
