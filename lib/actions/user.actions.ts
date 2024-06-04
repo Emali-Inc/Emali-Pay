@@ -91,8 +91,8 @@ export const signUp = async (userData: SignUpParams) => {
       sameSite: "strict",
       secure: true,
     });
-
-    return parseStringify(newUserAccount);
+    console.log("New user created or not created",newUserAccount)
+    return parseStringify(newUserAccount); 
   } catch (error) {
     console.error('Error signing up:', error);
     throw error;
