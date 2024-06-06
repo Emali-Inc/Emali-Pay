@@ -46,6 +46,7 @@ export async function createAdminClient() {
       return new Databases(client);
     },
     get user() {
+      console.log("Get User:",this.account)
       return new Users(client);
     }
   };
