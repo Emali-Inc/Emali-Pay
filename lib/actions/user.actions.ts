@@ -1,96 +1,71 @@
 'use server';
 
-
 import { ID, Query } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
-import { extractCustomerIdFromUrl, parseStringify } from "../utils";
-import { addFundingSource, createDwollaCustomer } from "./dwolla.actions";
-
+import {  parseStringify } from "../utils";
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
   APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
-  
+  APPWRITE_BANK_COLLECTION_ID: BANK_COLLECTION_ID,
 } = process.env;
 
-export const getUserInfo = async ({ userId }:getUserInfoProps) => {
+export const getUserInfo = async ({ userId }: getUserInfoProps) => {
   try {
-    console.log("getUserInfo called with userId:", userId);
-
     const { database } = await createAdminClient();
+
     const user = await database.listDocuments(
       DATABASE_ID!,
       USER_COLLECTION_ID!,
       [Query.equal('userId', [userId])]
-    );
+    )
 
-    if (user.documents.length === 0) {
-      console.error("No user found with userId:", userId);
-      throw new Error('User not found');
-    }
-
-    console.log("User documents retrieved:", user.documents[0]);
     return parseStringify(user.documents[0]);
   } catch (error) {
-    console.error('Error getting user info:', error);
-    return null; // Return null explicitly if user is not found
+    console.log(error)
   }
-};
+}
 
 export const signIn = async ({ email, password }: signInProps) => {
   try {
-    console.log("SignIn function called with email:", email);
-
     const { account } = await createAdminClient();
     const session = await account.createEmailPasswordSession(email, password);
-    console.log("Session created:", session);
 
-    cookies().set('emali-appwrite-session', session.$id, {
-      path: '/',
+    cookies().set("appwrite-session", session.secret, {
+      path: "/",
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: "strict",
       secure: true,
     });
 
-    const user = await getUserInfo({ userId: session.userId });
-    console.log("User info retrieved:", user);
-
-    if (!user) {
-      throw new Error("User not found or error retrieving user info");
-    }
+    const user = await getUserInfo({ userId: session.userId }) 
 
     return parseStringify(user);
   } catch (error) {
-    console.error('Error signing in:', error);
-    throw error;
+    console.error('Error', error);
   }
-};
+}
 
-export const signUp = async ( {password,...userData}: SignUpParams) => {
+export const signUp = async ({ password, ...userData }: SignUpParams) => {
   const { email, firstName, lastName } = userData;
+  
+  let newUserAccount;
 
   try {
-    const { account,database} = await createAdminClient();
+    const { account, database } = await createAdminClient();
 
-    const newUserAccount = await account.create(
-      ID.unique(),
-      email,
-      password,
+    newUserAccount = await account.create(
+      ID.unique(), 
+      email, 
+      password, 
       `${firstName} ${lastName}`
     );
 
-    if (!newUserAccount) throw new Error('Error creating user');
+    if(!newUserAccount) throw new Error('Error creating user')
 
-    const dwollaCustomerUrl = await createDwollaCustomer({
-      ...userData,
-      type: 'personal'
-    })
-
-    if(!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer')
-
-      const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
-
+    
+  
     const newUser = await database.createDocument(
       DATABASE_ID!,
       USER_COLLECTION_ID!,
@@ -98,56 +73,47 @@ export const signUp = async ( {password,...userData}: SignUpParams) => {
       {
         ...userData,
         userId: newUserAccount.$id,
-        dwollaCustomerId,
-        dwollaCustomerUrl,
+        
       }
     )
 
     const session = await account.createEmailPasswordSession(email, password);
-    console.log("Session created:", session);
 
-    cookies().set("emali-appwrite-session", session.secret, {
+    cookies().set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
       secure: true,
     });
-    console.log("New user created :",newUserAccount)
-    return parseStringify(newUser); 
-  } catch (error) {
-    console.error('Error signing up:', error);
-    throw error;
-  }
-};
 
+    return parseStringify(newUser);
+  } catch (error) {
+    console.error('Error', error);
+  }
+}
 
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
-    console.log("Get account:", account);
-
     const result = await account.get();
-    console.log("Logged in user account details:", result);
 
-    const user = await getUserInfo({ userId: result.$id });
-    console.log('User info is:', user);
+    const user = await getUserInfo({ userId: result.$id})
 
     return parseStringify(user);
   } catch (error) {
-    console.error('Error getting logged in user:', error);
+    console.log(error)
     return null;
   }
 }
 
+export const logoutAccount = async () => {
+  try {
+    const { account } = await createSessionClient();
 
-  //initilization logoutAccount functions
-export async function logoutAccount() {
-    try {
-      const { account } = await createSessionClient();
-      cookies().delete('emali-appwrite-session');
+    cookies().delete('appwrite-session');
 
-      await account.deleteSession('current');
-    } catch (error) {
-      return null;
-    }
+    await account.deleteSession('current');
+  } catch (error) {
+    return null;
   }
+}
