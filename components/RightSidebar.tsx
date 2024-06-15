@@ -1,12 +1,32 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import BankCard from './BankCard'
-import { countTransactionCategories } from '@/lib/utils'
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import BankCard from './BankCard';
+import { countTransactionCategories } from '@/lib/utils';
 //import Category from './Category'
 
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
   const categories: CategoryCount[] = countTransactionCategories(transactions);
+
+  // Check if user object is valid
+  if (!user) {
+    return (
+      <aside className="right-sidebar">
+        <section className="flex flex-col pb-8">
+          <div className="profile-banner" />
+          <div className="profile">
+            <div className="profile-img">
+              <span className="text-5xl font-bold text-blue-500">?</span>
+            </div>
+            <div className="profile-details">
+              <h1 className='profile-name'>Unknown User</h1>
+              <p className="profile-email">No email provided</p>
+            </div>
+          </div>
+        </section>
+      </aside>
+    );
+  }
 
   return (
     <aside className="right-sidebar">
@@ -14,7 +34,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile-banner" />
         <div className="profile">
           <div className="profile-img">
-            <span className="text-5xl font-bold text-blue-500">{user.firstName[0]}</span>
+            <span className="text-5xl font-bold text-blue-500">{user.firstName ? user.firstName[0] : '?'}</span>
           </div>
 
           <div className="profile-details">
@@ -78,7 +98,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         </div>
       </section>
     </aside>
-  )
+  );
 }
 
-export default RightSidebar
+export default RightSidebar;
