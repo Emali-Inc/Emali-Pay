@@ -1,0 +1,12 @@
+--2024-06-13 23:06:52--  https://update.code.visualstudio.com/commit:611f9bfce64f25108829dd295f54a6894e87339d/server-linux-legacy-x64/stable
+Resolving update.code.visualstudio.com (update.code.visualstudio.com)... 13.107.246.55, 2620:1ec:bdf::55
+Connecting to update.code.visualstudio.com (update.code.visualstudio.com)|13.107.246.55|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://vscode.download.prss.microsoft.com/dbazure/download/stable/611f9bfce64f25108829dd295f54a6894e87339d/vscode-server-linux-legacy-x64.tar.gz [following]
+--2024-06-13 23:06:53--  https://vscode.download.prss.microsoft.com/dbazure/download/stable/611f9bfce64f25108829dd295f54a6894e87339d/vscode-server-linux-legacy-x64.tar.gz
+Resolving vscode.download.prss.microsoft.com (vscode.download.prss.microsoft.com)... 152.199.21.175, 2a04:4e42:4e::684, 2a04:4e42:4f::684
+Connecting to vscode.download.prss.microsoft.com (vscode.download.prss.microsoft.com)|152.199.21.175|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 59538362 (57M) [application/octet-stream]
+Saving to: ‘/home/oyaro/.vscode-server/bin/611f9bfce64f25108829dd295f54a6894e87339d-1718304254.tar.gz’
+
