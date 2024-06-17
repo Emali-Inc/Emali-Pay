@@ -44,7 +44,8 @@ const AuthForm = ( {type}: {type: string}) => {
       
       if (type === 'sign-up') {
         const newUser = await signUp(data);
-        
+
+        //submit handler--create a newuser to database:
         setUser(newUser)
       }
       if (type === 'sign-in'){
@@ -73,7 +74,7 @@ const AuthForm = ( {type}: {type: string}) => {
                     height={34}
                     alt="Emali logo"
                 />
-                <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">EmaliPay</h1>
+                <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">OuteRing AI</h1>
             </Link>
             <div className="flex flex-col gap-1 md:gap-3">
                 <h1 className="text-24 lg:text-36 font-semibold text-grey-900">
