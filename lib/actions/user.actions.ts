@@ -146,10 +146,13 @@ export async function getLoggedInUser() {
  */
 export const logoutAccount = async () => {
   try {
+    //Extract account from createSesssionClient
     const { account } = await createSessionClient();
 
+    //Call the cookies and delete appwrite-session
     cookies().delete('appwrite-session');
 
+    //call the awit and delete current session
     await account.deleteSession('current');
   } catch (error) {
     return null;
