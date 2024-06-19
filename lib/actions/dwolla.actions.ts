@@ -2,7 +2,7 @@
 
 import { Client } from "dwolla-v2";
 
-const getEnvironment = (): "production" | "sandbox" => {
+  const getEnvironment = (): "production" | "sandbox" => {
   const environment = process.env.DWOLLA_ENV as string;
 
   switch (environment) {
@@ -17,6 +17,8 @@ const getEnvironment = (): "production" | "sandbox" => {
   }
 };
 
+
+//Create the client:
 const dwollaClient = new Client({
   environment: getEnvironment(),
   key: process.env.DWOLLA_KEY as string,
