@@ -27,6 +27,7 @@ const CategoryBadge = ({ category }: CategoryBadgeProps) => {
 } 
 
 const TransactionsTable = ({ transactions }: TransactionTableProps) => {
+  //console.log("Get Transactions",transactions)
   return (
     <Table>
       <TableHeader className="bg-[#f9fafb]">
@@ -74,6 +75,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                 {formatDateTime(new Date(t.date)).dateTime}
               </TableCell>
 
+              {/*Invisible in Small and Medium devices */}
               <TableCell className="pl-2 pr-10 capitalize min-w-24">
                {t.paymentChannel}
               </TableCell>
