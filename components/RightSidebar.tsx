@@ -16,7 +16,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile-banner"/>
         <div className="profile">
           <div className="profile-img">
-            <span className="text-5xl font-bold text-blue-500">{user.firstName[0]}</span>
+            <span className="text-5xl font-bold text-green-800">{user.firstName[0]}</span>
           </div>
 
           <div className="profile-details">
@@ -31,7 +31,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
       </section>
 
       <section className="banks">
-        <div className="flex w-full justify-between">
+        <div className="flex w-1/2 justify-between">
           <h2 className="header-2">My Banks</h2>
           <Link href="/" className="flex gap-2">
             <Image 
@@ -47,7 +47,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         </div>
 
         {banks?.length > 0 && (
-          <div className="relative flex flex-1 flex-col items-center justify-center gap-5">
+          <div className="relative flex flex-1 flex-col items-center justify-center gap-3">
             <div className='relative z-10'>
               <BankCard 
                 key={banks[0].$id}
