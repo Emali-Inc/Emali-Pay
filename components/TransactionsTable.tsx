@@ -51,7 +51,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
 
           return (
             <TableRow key={t.id} className={`${isDebit || amount[0] === '-' ? 'bg-[#FFFBFA]' : 'bg-[#F6FEF9]'} !over:bg-none !border-b-DEFAULT`}>
-              <TableCell className="max-w-[125px] pl-2 pr-10">
+              <TableCell className="max-w-[50px] pl-2 pr-2">
                 <div className="flex items-center gap-2">
                   <h1 className="text-14 truncate font-semibold text-[#344054]">
                     {removeSpecialCharacters(t.name)}
@@ -71,7 +71,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                 <CategoryBadge category={status} /> 
               </TableCell>
 
-              <TableCell className="min-w-32 pl-2 pr-10">
+              <TableCell className="min-w-28 pl-2 pr-10">
                 {formatDateTime(new Date(t.date)).dateTime}
               </TableCell>
 
