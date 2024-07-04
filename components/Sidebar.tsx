@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Footer from './Footer'
 import PlaidLink from './PlaidLink'
-import MpesaLink from './MpesaLink'
 
 const Sidebar = ({ user }: SiderbarProps) => {
   const pathname = usePathname();
@@ -20,10 +19,10 @@ const Sidebar = ({ user }: SiderbarProps) => {
             src="/icons/logo.svg"
             width={34}
             height={34}
-            alt="Horizon logo"
+            alt="Emali Pay logo"
             className="size-[24px] max-xl:size-14"
           />
-          <h1 className="sidebar-logo">OuterRing</h1>
+          <h1 className="sidebar-logo">Emali Pay</h1>
         </Link>
 
         {sidebarLinks.map((item) => {
@@ -51,7 +50,6 @@ const Sidebar = ({ user }: SiderbarProps) => {
         })}
         
         <PlaidLink user={user} />
-        <MpesaLink user={user} />
       </nav>
 
       <Footer user={user} />
