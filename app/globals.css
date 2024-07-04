@@ -134,7 +134,7 @@
   }
 
   .recent-transactions {
-    @apply flex w-full flex-col gap-6;
+    @apply flex w-full flex-col gap-2;
   }
 
   .view-all-btn {
@@ -142,7 +142,7 @@
   }
 
   .recent-transactions {
-    @apply flex w-full flex-col gap-6;
+    @apply flex w-full flex-col gap-2;
   }
 
   .recent-transactions-label {
@@ -150,7 +150,7 @@
   }
 
   .recent-transactions-tablist {
-    @apply custom-scrollbar mb-8 flex w-full flex-nowrap;
+    @apply custom-scrollbar mb-6 flex w-1/2 flex-nowrap;
   }
 
   /* Right sidebar */
@@ -201,15 +201,15 @@
   }
 
   .transactions-account {
-    @apply flex flex-col justify-between gap-4 rounded-lg border-y bg-blue-600 px-4 py-5 md:flex-row;
+    @apply flex flex-col justify-between gap-4 rounded-lg border-y bg-green-600 px-4 py-5 md:flex-row;
   }
 
   .transactions-account-balance {
-    @apply flex-center flex-col  gap-2 rounded-md bg-blue-25/20 px-4 py-2 text-white;
+    @apply flex-center flex-col  gap-2 rounded-md bg-green-25/20 px-4 py-2 text-white;
   }
 
   .header-box {
-    @apply flex flex-col gap-1;
+    @apply flex flex-col gap-0;
   }
 
   .header-box-title {
@@ -271,7 +271,7 @@
 
   /* Auth */
   .auth-asset {
-    @apply flex h-screen w-full sticky top-0 items-center justify-end bg-sky-1 max-lg:hidden;
+    @apply  flex h-screen w-full sticky top-0 items-center justify-end bg-sky-1 max-lg:hidden;
   }
 
   /* Auth Form */

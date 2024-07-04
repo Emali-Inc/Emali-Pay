@@ -52,6 +52,14 @@ const config = {
           700: "#175CD3",
           900: "#194185",
         },
+        green: {
+          25: "#F5FFF7",   // Very light green
+          100: "#D1FFD1",  // Light green
+          500: "#2EFA90",  // Medium green
+          600: "#15EF70",  // Slightly darker medium green
+          700: "#17D35C",  // Dark green
+          900: "#194135",  // Very dark green
+        },        
         sky: {
           1: "#F3F9FF",
         },
@@ -70,7 +78,7 @@ const config = {
         },
       },
       backgroundImage: {
-        "bank-gradient": "linear-gradient(90deg, #0179FE 0%, #4893FF 100%)",
+        "bank-gradient":  "linear-gradient(90deg, #064E09 0%, #4CAF50 100%)",
         "gradient-mesh": "url('/icons/gradient-mesh.svg')",
         "bank-green-gradient":
           "linear-gradient(90deg, #01797A 0%, #489399 100%)",
