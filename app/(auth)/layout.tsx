@@ -11,7 +11,7 @@ export default function RootLayout({
           {children}
           <div className="auth-asset">
             <div>
-              <Image src="/icons/emali-left-banner.PNG" alt="Auth image" width={500} height={1000}/>
+              <Image src="/icons/emali-left-side.PNG" alt="Auth image" width={500} height={500}/>
             </div>
           </div>
       </main>

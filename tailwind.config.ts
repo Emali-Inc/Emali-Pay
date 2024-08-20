@@ -61,7 +61,7 @@ const config = {
           900: "#194135",  // Very dark green
         },        
         sky: {
-          1: "#F3F9FF",
+          1: "#B0E9B0",
         },
         black: {
           1: "#00214F",
